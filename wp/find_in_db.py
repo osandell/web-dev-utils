@@ -2,6 +2,10 @@
 
 import mysql.connector
 import sys
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init()
 
 def search_database(db_name, search_term):
     config = {
@@ -35,7 +39,7 @@ def search_database(db_name, search_term):
                 cursor.execute(query[0])
                 results = cursor.fetchall()
                 if results:
-                    print(f"Results found in query: {query[0]}")
+                    print(f"\n{Fore.GREEN}Results found in query: {Fore.YELLOW}{query[0]}{Style.RESET_ALL}")
                     for result in results:
                         print(result)
             except mysql.connector.Error as err:
