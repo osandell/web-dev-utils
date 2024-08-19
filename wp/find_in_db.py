@@ -8,9 +8,12 @@ def search_database(db_name, search_term):
         'user': 'root',
         'password': '',
         'host': 'localhost',
-        'database': db_name
+        'database': db_name,
+        'charset': 'utf8mb4',  # Set charset to utf8mb4
+        'collation': 'utf8mb4_unicode_ci'  # Set collation to a compatible one
     }
 
+    cnx = None
     try:
         cnx = mysql.connector.connect(**config)
         cursor = cnx.cursor()
@@ -41,7 +44,7 @@ def search_database(db_name, search_term):
     except mysql.connector.Error as e:
         print(f"Database connection error: {e}")
     finally:
-        if cnx.is_connected():
+        if cnx and cnx.is_connected():
             cursor.close()
             cnx.close()
 
